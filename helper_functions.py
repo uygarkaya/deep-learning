@@ -98,12 +98,14 @@ def accuracy_func(y_pred, y_true):
   correct = torch.eq(y_true, y_pred).sum().item()
   return ((correct/len(y_true))*100)
 
-def precision_recall_f1Score(y_pred, y_true):
-  precision = metrics.precision_score(y_true, y_pred) # tp / (tp + fp)
-  recall = metrics.recall_score(y_true, y_pred) # tp / (tp + fn)
-  f1_score =  metrics.f1_score(y_true, y_pred) # 2 * (precision * recall) / (precision + recall)
+def precision_recall_f1Score(y_pred, y_true, classification_mode='multi_class'):
+  average = 'binary' if classification_mode == 'binary' else 'weighted'
+  precision = metrics.precision_score(y_true, y_pred, average=average) # tp / (tp + fp)
+  recall = metrics.recall_score(y_true, y_pred, average=average) # tp / (tp + fn)
+  f1_score =  metrics.f1_score(y_true, y_pred, average=average) # 2 * (precision * recall) / (precision + recall)
   return precision, recall, f1_score
 
-def classification_report(y_pred, y_true):
-  report = metrics.classification_report(y_true, y_pred)
+def classification_report(y_pred, y_true, classification_mode='multi_class'):
+  average = 'binary' if classification_mode == 'binary' else 'weighted'
+  report = metrics.classification_report(y_true, y_pred, average=average)
   return report
