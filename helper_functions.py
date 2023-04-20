@@ -105,5 +105,5 @@ def precision_recall_f1Score(y_pred, y_true):
   return precision, recall, f1_score
 
 def classification_report(y_pred, y_true):
-  report = metrics.classification_report(y_true, y_pred, *, labels=None, target_names=None, sample_weight=None, digits=2, output_dict=False, zero_division='warn')
+  report = metrics.classification_report(y_true, y_pred)
   return report
