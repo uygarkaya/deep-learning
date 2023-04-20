@@ -105,7 +105,6 @@ def precision_recall_f1Score(y_pred, y_true, classification_mode='multi_class'):
   f1_score =  metrics.f1_score(y_true, y_pred, average=average) # 2 * (precision * recall) / (precision + recall)
   return precision, recall, f1_score
 
-def classification_report(y_pred, y_true, classification_mode='multi_class'):
-  average = 'binary' if classification_mode == 'binary' else 'weighted'
-  report = metrics.classification_report(y_true, y_pred, average=average)
+def classification_report(y_pred, y_true):
+  report = metrics.classification_report(y_true, y_pred)
   return report
