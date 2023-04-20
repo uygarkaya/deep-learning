@@ -2,6 +2,7 @@ import torch
 import numpy as np
 
 from matplotlib import pyplot as plt
+from sklearn import metrics
 
 
 def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Tensor):
@@ -68,5 +69,15 @@ def visualize_loss(epoch_count_list, train_loss_list, test_loss_list):
 
 # Evaluation Function
 def accuracy_func(y_pred, y_true):
-  correct = torch.eq(y_true, y_pred).sum().item()
-  return ((correct/len(y_true))*100)
+    correct = torch.eq(y_true, y_pred).sum().item()
+    return ((correct/len(y_true))*100)
+
+def precision_recall_f1Score(y_pred, y_true):
+    precision = metrics.precision_score(y_true, y_pred) # tp / (tp + fp)
+    recall = metrics.recall_score(y_true, y_pred) # tp / (tp + fn)
+    f1_score =  metrics.f1_score(y_true, y_pred) # 2 * (precision * recall) / (precision + recall)
+    return precision, recall, f1_score
+
+def classification_report(y_pred, y_true):
+    report = metrics.classification_report(y_true, y_pred, *, labels=None, target_names=None, sample_weight=None, digits=2, output_dict=False, zero_division='warn')
+    return report
