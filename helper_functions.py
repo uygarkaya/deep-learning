@@ -2,6 +2,8 @@ import torch
 import numpy as np
 
 from matplotlib import pyplot as plt
+from sklearn import metrics
+from pathlib import Path
 
 
 def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Tensor):
@@ -57,16 +59,53 @@ def plot_predictions(train_data, train_labels, test_data, test_labels, predictio
 def visualize_loss(epoch_count_list, train_loss_list, test_loss_list):
   plt.figure(figsize=(10, 7))
 
-  # Plot training loss
+  # Plot Training & Testing Loss
   plt.plot(epoch_count_list, train_loss_list, label='Train Loss')
   plt.plot(epoch_count_list, test_loss_list, label='Test Loss')
   plt.title('Train & Test Loss Curves')
   plt.xlabel('Epoch')
   plt.ylabel('Loss')
   plt.legend(prop={'size': 14})
+    
+    
+def visualize_accuracy(epoch_count_list, train_acc_list, test_acc_list):
+  plt.figure(figsize=(10, 7))
+
+  # Plot Training & Testing Accuracy
+  plt.plot(epoch_count_list, train_acc_list, label='Train Accuracy')
+  plt.plot(epoch_count_list, test_acc_list, label='Test Accuracy')
+  plt.title('Train & Test Accuracy Curves')
+  plt.xlabel('Epoch')
+  plt.ylabel('Accuracy')
+  plt.legend(prop={'size': 14})
 
 
+def save_model(model, model_name):
+  # 1. Create models directory
+  MODEL_PATH = Path('models')
+  MODEL_PATH.mkdir(parents=True, exist_ok=True)
+
+  # 2. Create model save path
+  MODEL_NAME = model_name+'.pth'
+  MODEL_SAVE_PATH = MODEL_PATH/MODEL_NAME
+
+  # 3. Save the model state dict
+  torch.save(model.state_dict(), MODEL_SAVE_PATH)
+  
+    
 # Evaluation Function
 def accuracy_func(y_pred, y_true):
   correct = torch.eq(y_true, y_pred).sum().item()
   return ((correct/len(y_true))*100)
+
+def precision_recall_f1Score(y_pred, y_true, classification_mode='multi_class'):
+  average = 'binary' if classification_mode == 'binary' else 'weighted'
+  precision = metrics.precision_score(y_true, y_pred, average=average) # tp / (tp + fp)
+  recall = metrics.recall_score(y_true, y_pred, average=average) # tp / (tp + fn)
+  f1_score =  metrics.f1_score(y_true, y_pred, average=average) # 2 * (precision * recall) / (precision + recall)
+  return precision, recall, f1_score
+
+def confusion_matrix_and_classification_report(y_pred, y_true):
+  report = metrics.classification_report(y_true, y_pred)
+  matrix = metrics.confusion_matrix(y_true, y_pred)
+  return matrix, report
