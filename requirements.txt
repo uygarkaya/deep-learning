@@ -1,4 +1,5 @@
 torch
+tqdm
 numpy
 pandas
 matplotlib
