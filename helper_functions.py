@@ -93,7 +93,7 @@ def save_model(model, model_name):
   torch.save(model.state_dict(), MODEL_SAVE_PATH)
   
     
-# Evaluation Function
+# Evaluation Functions
 def accuracy_func(y_pred, y_true):
   correct = torch.eq(y_true, y_pred).sum().item()
   return ((correct/len(y_true))*100)
@@ -109,3 +109,21 @@ def confusion_matrix_and_classification_report(y_pred, y_true):
   report = metrics.classification_report(y_true, y_pred)
   matrix = metrics.confusion_matrix(y_true, y_pred)
   return matrix, report
+
+# Time Function
+def execution_time(start_time: float,
+                   end_time: float,
+                   device: torch.device=None):
+  """
+  Print diffrences between start time and end time which is execution time
+
+  Args:
+      start_time (float): Start time of computation (preferred in timeit format). 
+      end_time (float): End time of computation.
+      device ([type], optional): Device that compute is running on. Defaults to None.
+    Returns:
+      float: time between start and end in seconds (higher is longer).
+  """
+  execution_time = end_time - start_time
+  print(f"Train Time on {device}: {execution_time:.3f} Seconds")
+  return execution_time
