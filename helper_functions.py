@@ -98,6 +98,7 @@ def accuracy_func(y_pred, y_true):
   correct = torch.eq(y_true, y_pred).sum().item()
   return ((correct/len(y_true))*100)
 
+
 def precision_recall_f1Score(y_pred, y_true, classification_mode='multi_class'):
   average = 'binary' if classification_mode == 'binary' else 'weighted'
   precision = metrics.precision_score(y_true, y_pred, average=average) # tp / (tp + fp)
@@ -105,10 +106,16 @@ def precision_recall_f1Score(y_pred, y_true, classification_mode='multi_class'):
   f1_score =  metrics.f1_score(y_true, y_pred, average=average) # 2 * (precision * recall) / (precision + recall)
   return precision, recall, f1_score
 
+
 def confusion_matrix_and_classification_report(y_pred, y_true):
   report = metrics.classification_report(y_true, y_pred)
   matrix = metrics.confusion_matrix(y_true, y_pred)
   return matrix, report
+
+
+def visualize_conf_matrix(confusion_matrix, display_labels=None):
+  return ConfusionMatrixDisplay(confusion_matrix=confusion_matrix).plot()
+
 
 # Time Function
 def execution_time(start_time: float,
