@@ -161,11 +161,11 @@ if Path("helper_functions.py").is_file():
   print("helper_functions.py already exists, skipping download")
 else:
   print("Downloading helper_functions.py")
-  request = requests.get("https://raw.githubusercontent.com/UygarKAYA/DeepLearning/main/helper_functions.py?token=GHSAT0AAAAAAB4RI7LG2HPTVAOWD6R7AKEUZB4D2EA")
+  request = requests.get("https://raw.githubusercontent.com/UygarKAYA/DeepLearning/main/utils/helper_functions.py")
   with open("helper_functions.py", "wb") as f:
     f.write(request.content)
 
-from helper_functions import plot_decision_boundary
+from utils.helper_functions import plot_decision_boundary
 
 # Plot decision boundary of the model
 plt.figure(figsize=(12, 6))
@@ -239,7 +239,7 @@ for epoch in range(epochs):
   if epoch % 25 == 0:
     print(f'Epoch: {epoch} | Training Accuracy {train_accuracy:.2f} | Training Loss: {train_loss:.2f} | Testing Accuracy {test_accuracy:.2f} | Testing Loss: {test_loss:.2f}')
 
-from helper_functions import plot_decision_boundary
+from utils.helper_functions import plot_decision_boundary
 
 # Plot decision boundary of the model
 plt.figure(figsize=(12, 6))
@@ -307,7 +307,7 @@ for epoch in range(epochs):
   if epoch % 25 == 0:
     print(f'Epoch: {epoch} | Training Accuracy {train_accuracy:.2f} | Training Loss: {train_loss:.2f} | Testing Accuracy {test_accuracy:.2f} | Testing Loss: {test_loss:.2f}')
 
-from helper_functions import plot_decision_boundary
+from utils.helper_functions import plot_decision_boundary
 
 # Plot decision boundary of the model
 plt.figure(figsize=(12, 6))

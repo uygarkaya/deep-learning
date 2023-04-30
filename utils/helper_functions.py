@@ -114,7 +114,7 @@ def confusion_matrix_and_classification_report(y_pred, y_true):
 
 
 def visualize_conf_matrix(confusion_matrix, display_labels=None):
-  return ConfusionMatrixDisplay(confusion_matrix=confusion_matrix).plot()
+  return metrics.ConfusionMatrixDisplay(confusion_matrix=confusion_matrix).plot()
 
 
 # Time Function
@@ -132,5 +132,5 @@ def execution_time(start_time: float,
       float: time between start and end in seconds (higher is longer).
   """
   execution_time = end_time - start_time
-  print(f"Train Time on {device}: {execution_time:.3f} Seconds")
-  return execution_time
+  print(f"Train Time on {device.upper()}: {execution_time:.3f} Seconds")
+  # return execution_time

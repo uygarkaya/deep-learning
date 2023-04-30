@@ -46,13 +46,15 @@ y = weight * X + bias # vector
 # Let's create a training and testing set with our data
  # Create a train/test split
 
- split = int(0.8 * len(X))
- X_train, y_train = X[:split], y[:split]
- X_test, y_test = X[split:], y[split:]
+split = int(0.8 * len(X))
+X_train, y_train = X[:split], y[:split]
+X_test, y_test = X[split:], y[split:]
 
- len(X_train), len(y_train), len(X_test), len(y_test)
+len(X_train), len(y_train), len(X_test), len(y_test)
 
-"""## Visualize the data"""
+"""
+## Visualize the data
+"""
 
 def plot_predictions(train_data=X_train,
                      train_labels=y_train,

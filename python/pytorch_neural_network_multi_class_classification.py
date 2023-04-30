@@ -97,14 +97,14 @@ if Path("helper_functions.py").is_file():
   print("helper_functions.py already exists, skipping download")
 else:
   print("Downloading helper_functions.py")
-  request = requests.get("https://raw.githubusercontent.com/UygarKAYA/DeepLearning/main/helper_functions.py?token=GHSAT0AAAAAAB4RI7LGXFBZJSVMSQPKPC5GZCBXJKQ")
+  request = requests.get("https://raw.githubusercontent.com/UygarKAYA/DeepLearning/main/utils/helper_functions.py")
   with open("helper_functions.py", "wb") as f:
     f.write(request.content)
 
 """
 ## 4. Creating a Training Loop and Testing Loop for a Multi-Class PyTorch Model
 """
-from helper_functions import accuracy_func, precision_recall_f1Score, confusion_matrix_and_classification_report
+from utils.helper_functions import accuracy_func, precision_recall_f1Score, confusion_matrix_and_classification_report
 
 torch.manual_seed(42)
 torch.cuda.manual_seed(42)
@@ -144,7 +144,7 @@ for epoch in range(epochs):
   if epoch % 10 == 0:
     print(f"Epoch: {epoch} | Train Accuracy: {train_acc:.2f} | Train Loss: {train_loss:.2f} | Test Accuracy: {test_acc:.2f} | Test Loss: {test_loss:.2f} | Precision: {precision:.2f} | Recall: {recall:.2f} | F1 Score: {f1Score:.2f}")
 
-from helper_functions import plot_decision_boundary
+from utils.helper_functions import plot_decision_boundary
 
 # Plot decision boundary of the model
 plt.figure(figsize=(12, 6))
