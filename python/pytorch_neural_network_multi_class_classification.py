@@ -104,7 +104,7 @@ else:
 """
 ## 4. Creating a Training Loop and Testing Loop for a Multi-Class PyTorch Model
 """
-from utils.helper_functions import accuracy_func, precision_recall_f1Score, confusion_matrix_and_classification_report
+from utils.helper_functions import accuracy_func, precision_recall_f1Score, confusion_matrix_and_classification_report, visualize_conf_matrix
 
 torch.manual_seed(42)
 torch.cuda.manual_seed(42)
@@ -141,8 +141,8 @@ for epoch in range(epochs):
     precision, recall, f1Score = precision_recall_f1Score(test_preds, y_test)
 
     if epoch == epochs-1:
-      confusion_matrix, classification_report = confusion_matrix_and_classification_report(test_preds, y_test, device=device)
-      print(f"\n{confusion_matrix}")
+      confusion_matrix, classification_report = confusion_matrix_and_classification_report(test_preds, y_test)
+      visualize_conf_matrix(confusion_matrix)
       print(f"\n{classification_report}")
   
   # Print out what's happening'

@@ -99,15 +99,17 @@ def accuracy_func(y_pred, y_true):
   return ((correct/len(y_true))*100)
 
 
-def precision_recall_f1Score(y_pred, y_true, classification_mode='multi_class', device='None'):
+def precision_recall_f1Score(y_pred, y_true, classification_mode='multi_class'):
+  y_pred, y_true = y_pred.to('cpu'), y_true.to('cpu') # If Tensor is on GPU, Can't Transform It to NumPy
   average = 'binary' if classification_mode == 'binary' else 'weighted'
-  precision = metrics.precision_score(y_true, y_pred, average=average).to(device).numpy() # tp / (tp + fp)
-  recall = metrics.recall_score(y_true, y_pred, average=average).to(device).numpy() # tp / (tp + fn)
-  f1_score =  metrics.f1_score(y_true, y_pred, average=average).to(device).numpy() # 2 * (precision * recall) / (precision + recall)
+  precision = metrics.precision_score(y_true, y_pred, average=average) # tp / (tp + fp)
+  recall = metrics.recall_score(y_true, y_pred, average=average) # tp / (tp + fn)
+  f1_score =  metrics.f1_score(y_true, y_pred, average=average) # 2 * (precision * recall) / (precision + recall)
   return precision, recall, f1_score
 
 
 def confusion_matrix_and_classification_report(y_pred, y_true):
+  y_pred, y_true = y_pred.to('cpu'), y_true.to('cpu') # If Tensor is on GPU, Can't Transform It to NumPy
   report = metrics.classification_report(y_true, y_pred)
   matrix = metrics.confusion_matrix(y_true, y_pred)
   return matrix, report
