@@ -110,13 +110,18 @@ def accuracy_func(y_pred, y_true):
 ## 3. Build a Train & Test Loop
 """
 
-# torch.cuda.manual_seed(42)
+torch.cuda.manual_seed(42)
 torch.manual_seed(42)
 epochs = 100
 
 for epoch in range(epochs):
+
   # Train Mode
   model.train()
+
+  # Send the Data Target Device
+  X_train, X_test = X_train.to(device), X_test.to(device)
+  y_train, y_test = y_train.to(device), y_test.to(device)
 
   # 1. Forward Pass
   train_logits = model.forward(X_train).squeeze()

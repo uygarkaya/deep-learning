@@ -112,8 +112,13 @@ epochs = 100
 
 # Loop through data
 for epoch in range(epochs):
+
   # Training Mode
   model.train()
+
+  # Send the Data Target Device
+  X_train, X_test = X_train.to(device), X_test.to(device)
+  y_train, y_test = y_train.to(device), y_test.to(device)
 
   train_logits = model.forward(X_train)
   train_preds = torch.softmax(train_logits, dim=1).argmax(dim=1)
@@ -136,7 +141,7 @@ for epoch in range(epochs):
     precision, recall, f1Score = precision_recall_f1Score(test_preds, y_test)
 
     if epoch == epochs-1:
-      confusion_matrix, classification_report = confusion_matrix_and_classification_report(test_preds, y_test)
+      confusion_matrix, classification_report = confusion_matrix_and_classification_report(test_preds, y_test, device=device)
       print(f"\n{confusion_matrix}")
       print(f"\n{classification_report}")
   

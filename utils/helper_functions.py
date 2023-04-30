@@ -99,11 +99,11 @@ def accuracy_func(y_pred, y_true):
   return ((correct/len(y_true))*100)
 
 
-def precision_recall_f1Score(y_pred, y_true, classification_mode='multi_class'):
+def precision_recall_f1Score(y_pred, y_true, classification_mode='multi_class', device='None'):
   average = 'binary' if classification_mode == 'binary' else 'weighted'
-  precision = metrics.precision_score(y_true, y_pred, average=average) # tp / (tp + fp)
-  recall = metrics.recall_score(y_true, y_pred, average=average) # tp / (tp + fn)
-  f1_score =  metrics.f1_score(y_true, y_pred, average=average) # 2 * (precision * recall) / (precision + recall)
+  precision = metrics.precision_score(y_true, y_pred, average=average).to(device).numpy() # tp / (tp + fp)
+  recall = metrics.recall_score(y_true, y_pred, average=average).to(device).numpy() # tp / (tp + fn)
+  f1_score =  metrics.f1_score(y_true, y_pred, average=average).to(device).numpy() # 2 * (precision * recall) / (precision + recall)
   return precision, recall, f1_score
 
 
